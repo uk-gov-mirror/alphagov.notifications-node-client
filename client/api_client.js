@@ -3,6 +3,12 @@ var defaultRestClient = require('axios').default,
     notifyProductionAPI = 'https://api.notifications.service.gov.uk',
     version = require('../package.json').version;
 
+function requireApiKey(apiKey) {
+  if (typeof apiKey !== 'string' || apiKey.length === 0) {
+    throw new Error('API key is required and must be a string');
+  }
+}
+
 /**
  * @param {string} apiKeyOrUrl - API key (1 arg), or base URL (2-3 args)
  * @param {string} [serviceIdOrApiKey] - API key (2 args), or service ID (3 args)
@@ -15,6 +21,7 @@ function ApiClient(apiKeyOrUrl, serviceIdOrApiKey, apiKeyId) {
   this.restClient = defaultRestClient;
 
   if (arguments.length === 1) {
+    requireApiKey(arguments[0]);
     this.urlBase = notifyProductionAPI;
     this.apiKeyId = arguments[0].substring(arguments[0].length - 36, arguments[0].length);
     this.serviceId = arguments[0].substring(arguments[0].length - 73, arguments[0].length - 37);
@@ -22,11 +29,13 @@ function ApiClient(apiKeyOrUrl, serviceIdOrApiKey, apiKeyId) {
 
   if (arguments.length === 2) {
 
-    if (arguments[0].startsWith('http')) {
+    if (typeof arguments[0] === 'string' && arguments[0].startsWith('http')) {
+      requireApiKey(arguments[1]);
       this.urlBase = arguments[0];
       this.apiKeyId = arguments[1].substring(arguments[1].length - 36, arguments[1].length);
       this.serviceId = arguments[1].substring(arguments[1].length - 73, arguments[1].length - 37);
     } else {
+      requireApiKey(arguments[1]);
       this.urlBase = notifyProductionAPI;
       this.serviceId = arguments[0];
       this.apiKeyId = arguments[1].substring(arguments[1].length - 36, arguments[1].length);
@@ -35,9 +44,14 @@ function ApiClient(apiKeyOrUrl, serviceIdOrApiKey, apiKeyId) {
   }
 
   if (arguments.length === 3) {
+    requireApiKey(arguments[2]);
     this.urlBase = arguments[0];
     this.serviceId = arguments[1];
     this.apiKeyId = arguments[2].substring(arguments[2].length - 36, arguments[2].length);
+  }
+
+  if (arguments.length === 0) {
+    requireApiKey(undefined);
   }
 
 }
