@@ -1,3 +1,7 @@
+## 8.4.1 - 2026-07-06
+
+* The `NotifyClient`/`ApiClient` constructor now throws a clear "API key is required and must be a string" error when the API key is missing, instead of the opaque `Cannot read properties of undefined (reading 'substring')` crash.
+
 ## 8.4.0 - 2026-05-14
 
 * The `sendEmail` function can now be passed `santiseContentFor` as an optional argument.

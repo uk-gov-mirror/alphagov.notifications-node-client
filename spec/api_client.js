@@ -153,4 +153,16 @@ describe('api client', function () {
       })
       .catch(done);
   });
+
+  it('should throw a helpful error when constructed without an API key', function () {
+    expect(function () { new ApiClient(); }).to.throw('API key is required');
+  });
+
+  it('should throw a helpful error when the API key is undefined', function () {
+    expect(function () { new ApiClient(undefined); }).to.throw('API key is required');
+  });
+
+  it('should throw a helpful error when the API key is missing alongside a base URL', function () {
+    expect(function () { new ApiClient('https://api.example.com', undefined); }).to.throw('API key is required');
+  });
 });
