@@ -552,6 +552,22 @@ describe('notification api', () => {
 
     });
 
+    it('should return personalisation from get template by id', () => {
+
+      let templateId = '35836a9e-5a97-4d99-8309-0c5a2c3dbc72';
+
+      notifyAuthNock
+      .get('/v2/template/' + templateId)
+      .reply(200, {personalisation: {name: {required: true}}});
+
+      return notifyClient.getTemplateById(templateId)
+      .then(function (response) {
+        expect(response.status).to.equal(200);
+        expect(response.data.personalisation).to.deep.equal({name: {required: true}});
+      });
+
+    });
+
     it('should get template by id and version', () => {
 
       let templateId = '35836a9e-5a97-4d99-8309-0c5a2c3dbc72';

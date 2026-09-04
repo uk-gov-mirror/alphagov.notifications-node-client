@@ -102,6 +102,7 @@ async function testGetTemplateById() {
   const body: string = response.data.body;
   const letterContactBlock: string | undefined = response.data.letter_contact_block;
   const postage: string | undefined = response.data.postage;
+  const personalisation: { [key: string]: { required: boolean } } | undefined = response.data.personalisation;
 }
 
 // getTemplateByIdAndVersion

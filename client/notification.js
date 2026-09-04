@@ -58,6 +58,7 @@ var ApiClient = require('./api_client');
  * @property {string} [subject]
  * @property {string} [letter_contact_block]
  * @property {PostageType} [postage]
+ * @property {{[key: string]: {required: boolean}}} [personalisation]
  */
 
 /**
