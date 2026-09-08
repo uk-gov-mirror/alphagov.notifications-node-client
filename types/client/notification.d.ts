@@ -63,6 +63,11 @@ type TemplateData = {
     subject?: string;
     letter_contact_block?: string;
     postage?: PostageType;
+    personalisation?: {
+        [key: string]: {
+            required: boolean;
+        };
+    };
 };
 /**
  * @typedef {"sms" | "letter" | "email"} NotificationType
@@ -181,6 +186,7 @@ declare class NotifyClient {
      * @property {string} [subject]
      * @property {string} [letter_contact_block]
      * @property {PostageType} [postage]
+     * @property {{[key: string]: {required: boolean}}} [personalisation]
      */
     /**
      * @param {string} apiKeyOrUrl - API key (1 arg), or base URL (2-3 args)

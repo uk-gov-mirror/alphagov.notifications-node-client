@@ -1,3 +1,7 @@
+## 8.5.0
+
+* Add `personalisation` to template response types from `getTemplateById`, `getTemplateByIdAndVersion` and `getAllTemplates`. This is an object of placeholder names, for example `{"name": {"required": true}}`.
+
 ## 8.4.1 - 2026-07-06
 
 * The `NotifyClient`/`ApiClient` constructor now throws a clear "API key is required and must be a string" error when the API key is missing, instead of the opaque `Cannot read properties of undefined (reading 'substring')` crash.
